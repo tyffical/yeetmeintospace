@@ -1,0 +1,5 @@
+# dotenv environment constiables file
+.env
+
+# Dependency directories
+node_modules/

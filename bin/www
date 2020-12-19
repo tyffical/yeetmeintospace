@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 const app = require('../app');
-const debug = require('debug')('safeskiii-starter:server');
+const debug = require('debug')('yeetmeintospace-starter:server');
 const http = require('http');
 
 /**
