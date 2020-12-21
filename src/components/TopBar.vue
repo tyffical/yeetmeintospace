@@ -12,10 +12,10 @@
       </div>
 
       <div class="icon"> 
-        <!-- <router-link to="/settings"> -->
+        <router-link to="/settings">
           <div id="settings"> settings </div>
           <!-- <img alt="Home" src="../assets/settings.png" v-on:click="clicked('settings')" width=35 height=35>  -->
-        <!-- </router-link> -->
+        </router-link>
       </div>
     </div>
   </div>

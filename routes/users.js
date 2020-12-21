@@ -9,16 +9,18 @@ const Users = require('../models/Users');
  * @name POST/api/users
  * @param {string} username - username for the new yeetmeinto.space user
  * @param {string} password - password for the new yeetmeinto.space user
- * @throws {409} - if username is already taken or the username/password fields are empty
+ * @throws {400} - the username/password fields are empty or already logged in
+ * @throws {409} - if username is already taken 
  */
 router.post('/', (req, res) => {
 	if (req.session.username === undefined) {
 		if (req.body.username.length === 0 || req.body.password.length === 0){
 			res.status(400).json({ message: 'The username and password must be at least 1 character.' });
 		} else if (Users.userExists(req.body.username)){
-			res.status(409).json({ message: 'User already exists. Try a different username' });
+			res.status(400).json({ message: 'User already exists. Try a different username' });
 		} else {
 			Users.createUser(req.body.username, req.body.password);
+			req.session.username = req.body.username;
 			res.status(200).json({ username: req.session.username });
 		}
 	} else{
