@@ -1,9 +1,15 @@
-html, body {
+html
+/* , #background */
+ {
     /* background-color: black; */
     background-image: url("https://wallpapercave.com/wp/wp3204926.jpg");
     background-size: cover;
+    /* background-size: auto; */
+    /* background-position: 0, 0; */
     width: 100%;
     height: 100%;
+    /* width: 10000px; */
+    /* height: 10000px; */
     overflow: hidden;
 }
 
@@ -11,6 +17,12 @@ h1 {
     color: white;
     font-family: "Nova Mono", sans-serif;
     text-align: center;
-    margin-top: 15%;
+    margin-top: 10%;
     letter-spacing: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+    h1 {
+        letter-spacing: normal;
+    }
 }

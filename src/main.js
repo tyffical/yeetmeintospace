@@ -11,24 +11,24 @@ Vue.use(VueCookie);
 
 export const eventBus = new Vue();
 
-var firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: "",
-  measurementId: ""
-};
+// var firebaseConfig = {
+//   apiKey: "",
+//   authDomain: "",
+//   projectId: "",
+//   storageBucket: "",
+//   messagingSenderId: "",
+//   appId: "",
+//   measurementId: ""
+// };
 
-Firebase.initializeApp(firebaseConfig); 
+// Firebase.initializeApp(firebaseConfig); 
 
-Vue.config.productionTip = false
+// Vue.config.productionTip = false
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
-Firebase.analytics();
+// Firebase.analytics();
 
 new Vue({
   router,

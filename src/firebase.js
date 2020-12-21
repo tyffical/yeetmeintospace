@@ -1,17 +1,17 @@
-import { initializeApp } from 'firebase';
+// import { initializeApp } from 'firebase';
 
-const app = initializeApp( {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: "",
-    measurementId: ""
-});
+// const app = initializeApp( {
+//     apiKey: "",
+//     authDomain: "",
+//     projectId: "",
+//     storageBucket: "",
+//     messagingSenderId: "",
+//     appId: "",
+//     measurementId: ""
+// });
 
-export const db = app.database();
-export const namesRef = db.ref('names');
+// export const db = app.database();
+// export const namesRef = db.ref('names');
 
 
 // <!-- The core Firebase JS SDK is always required and must be listed first -->
