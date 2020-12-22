@@ -129,11 +129,13 @@ router.delete('/session', (req, res) => {
  * Create a quote to be yeeted.
  * @name POST/api/users/yeet
  * @throws {401} - if user is not logged in
- * @throws {400} - if user is not a business
+ * @throws {400} - if quote is empty
  */
 router.post('/yeet', (req, res) => {
 	if(req.session.username === undefined){
 		res.status(401).json({ message: 'Not signed in' });
+	} else if (req.body.quote.length === 0) {
+		res.status(400).json({message: `Can't yeet empty quote`})
 	}
 	else{
 		const username = req.session.username;
@@ -144,23 +146,29 @@ router.post('/yeet', (req, res) => {
 })
 
 /**
- * Get the information about the current user signed in
+//  * Get the information about the current user signed in
+ * Get all users and their quotes.
  * @name GET/api/users/
+//  * @throws {401} - if user not signed in
  */
 router.get('/', (req, res) => {
-	if(req.session.username === undefined){
-		res.status(401).json({ message: 'Not signed in' });
-	}
-	else{
-		const logged_in = req.session.username
-		//console.log(logged_in);
-		res.status(200).json({ user: Users.getUserId(logged_in)});
-	}
+	// if(req.session.username === undefined){
+	// 	res.status(401).json({ message: 'Not signed in' });
+	// }
+	// else{
+	// 	const logged_in = req.session.username
+	// 	//console.log(logged_in);
+	// 	res.status(200).json({ user: Users.getUserId(logged_in)});
+	// }
+	let users_list = Users.getUsers();
+	res.status(200).json({users: users_list})
 })
 
 /**
  * Get particular user's quote
  * @name GET/api/users/yeet/:username
+ * @throws {401} - if user not found/signed in
+ * @throws {400} - if user's quote not found
  */
 router.get('/yeet/:username?', (req, res) => {
 	//console.log(req.body);
@@ -171,11 +179,16 @@ router.get('/yeet/:username?', (req, res) => {
 	if (requesting === undefined){
 		res.status(401).json( {message: "requesting undefined"});
 	} else if (!Users.userExists(requesting)) {
-		res.status(401).json( {message: 'User/business not found'});
+		res.status(401).json( {message: 'User not found'});
 	}
 	else{
 		//console.log(logged_in);
-		res.status(200).json({ announcements: Users.getQuote(requesting)});
+		let thisquote = Users.getQuote(requesting);
+		if (thisquote === "") {
+			res.status(400).json({ message: "No quote found"});
+		} else {
+			res.status(200).json({ quote: thisquote});
+		}
 	}
 })
 

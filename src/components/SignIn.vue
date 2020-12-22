@@ -105,11 +105,6 @@ export default {
   color: white;
 }
 
-.sign-in {
-  margin-bottom: 4rem;
-  /* position: relative; */
-}
-
 .component {
   display: flex;
   flex-direction: column;
@@ -126,8 +121,8 @@ export default {
   color:black;
   margin-top: 1rem;
   margin-bottom: 2rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin-left: 5%;
+  margin-right: 5%;
   font-size: 16px;
   font-weight: 700;
   
@@ -148,4 +143,9 @@ export default {
   opacity: 0.8;
   color: grey;
 }
+
+.error-message {
+  color: red;
+}
+
 </style>

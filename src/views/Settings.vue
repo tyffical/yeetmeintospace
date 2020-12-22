@@ -14,8 +14,8 @@
         <input type='submit' value='Update Password' class="change">
       </form>
       <div class="buttons">
-        <button v-on:click="deleteAccount" class="change">Delete Account</button>
-        <button v-on:click="signOut" class="change">Sign Out</button>
+        <button id="delete" v-on:click="deleteAccount" class="change">Delete Account</button>
+        <button id="signout" v-on:click="signOut" class="change">Sign Out</button>
       </div>
       <div v-if='errors.length' class="error-message" style="width: 250px;">
         <b>Please correct the following error(s):</b>
@@ -23,6 +23,13 @@
           <li v-for='error in errors' v-bind:key='error.id'>{{ error }}</li>
         </ul>
       </div>
+      <div v-if='messages.length' class="message" style="width: 250px;">
+      <br/>
+      <b>Messages:</b>
+      <ul>
+          <li v-for='message in messages' v-bind:key='message.id'>{{ message }}</li>
+      </ul>
+    </div>
     </div>
   </div>
 </template>
@@ -41,6 +48,7 @@ export default {
   data() {
     return {
       errors: [],
+      messages: [],
       newUsername: "",
       newPassword: ""
     }
@@ -90,7 +98,7 @@ export default {
         })
         .then(() => {
           // always executed
-          this.resetUsernameForm();
+          this.newUsername = "";
         });
     },
 
@@ -108,7 +116,7 @@ export default {
         })
         .then(() => {
           // always executed
-          this.resetPasswordForm();
+          this.newPassword = "";
         });
     },
 
@@ -142,12 +150,11 @@ export default {
         })
     },
 
-    resetUsernameForm: function() {
-      this.newUsername = "";
-    },
-
-    resetPasswordForm: function() {
-      this.newPassword = "";
+    clearMessages: function() {
+      setInterval(() => {
+        this.errors = [];
+        this.messages = [];
+      }, 5000);
     },
   }
 }
@@ -185,12 +192,22 @@ export default {
 
 .buttons {
   display: flex;
-  margin: 3rem;
+  margin-top: 1rem;
+}
+
+#delete {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#signout {
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .change {
   color:black;
-  margin: 1rem 3rem 2rem 3rem;
+  margin: 1rem 3rem 1rem 3rem;
   font-size: 16px;
   font-weight: 700;
   
@@ -213,6 +230,14 @@ export default {
 h1 {
   margin-top: 0%;
   margin-bottom: 5%;
+}
+
+.error-message {
+  color: red;
+}
+
+.message {
+  color: white;
 }
 
 </style>

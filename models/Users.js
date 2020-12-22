@@ -1,5 +1,6 @@
 let users = new Map();
 let userIdMap = new Map(); // maps username to unique id
+let quoteMap = new Map(); // maps username to quote
 
 /**
  * @class Users
@@ -103,7 +104,16 @@ class Users {
 	 */
 	static yeet(username, quote){
 		users.get(userIdMap.get(username)).quote = quote;
+		quoteMap.set(username, quote);
 		return users.get(userIdMap.get(username)).quote;
+	}
+
+	/**
+	 * Get all users.
+	 * @return {Array} - list of all usernames
+	 */
+	static getUsers() {
+		return Array.from(quoteMap.keys());
 	}
 }
 
