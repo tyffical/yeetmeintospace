@@ -1,6 +1,6 @@
 <template>
     <div class="yeet-list">
-        <div v-if='yeets.length' class="yeets" style="width: 250px;">
+        <div v-if='yeets.length' class="yeets">
             <br/>
             <!-- <h2>Yeets:</h2> -->
             <div class="yeet" v-for='yeet in yeets' v-bind:key='yeet.id'> 
@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <div v-if='errors.length' class="error-message" style="width: 250px;">
+        <div v-if='errors.length' class="error-message">
             <br/>
             <b>Please correct the following error(s):</b>
             <ul>
@@ -74,31 +74,31 @@ export default {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 1rem;
     margin-left: 5%;
-    width: 100%;
-    height: 100%;
-    margin-right: 5%;
+    width: 90%;
+    /* height: 20%; */
+    height: 450px;
+    /* margin-right: 5%; */
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
 }
 
 .yeets {
-    margin: 0;
-    padding: 0;
-    /* display: flex;
+    display: flex;
     flex-direction: row;
-    flex-wrap: wrap; */
-    /* overflow-y: scroll;
-    overflow-x: visible; */
-    /* overflow: auto; */
-    /* display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(160px, 1fr)); */
-    /* display: flex; */
-    /* flex-direction: row; */
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+
 }
 
 .yeet {
     width: 300px;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin: 8px 2px;
     box-sizing: border-box;
     font-size: 18px;
     font-family: 'Courier New', Courier, monospace;

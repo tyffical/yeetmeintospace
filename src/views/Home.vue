@@ -3,7 +3,7 @@
     <div v-if="isSignedIn">
       <TopBar/> 
       <h1 class=shimmer>yeetmeinto.space</h1>
-      <div v-if="yeeted">
+      <div v-if="yeeted" class="yeets">
         <!-- <YeetMe/> -->
         <Yeets/>
       </div>
@@ -107,8 +107,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .message {
   color: white;
 }
+
+/* .yeets {
+  height: 80%;
+  margin-bottom: 5%;
+} */
 </style>
