@@ -14,7 +14,7 @@
       <div class="icon"> 
         <router-link to="/settings">
           <div id="settings"> settings </div>
-          <!-- <img alt="Home" src="../assets/settings.png" v-on:click="clicked('settings')" width=35 height=35>  -->
+          <!-- <img alt="Settings" src="../assets/settings.png" v-on:click="clicked('settings')" width=35 height=35>  -->
         </router-link>
       </div>
     </div>

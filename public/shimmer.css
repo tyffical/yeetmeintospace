@@ -93,3 +93,9 @@
     background-color: #222;
   }
 }
+
+@media only screen and (max-width: 450px) {
+  .shimmer {
+    font-size: 2em;
+  }
+}
