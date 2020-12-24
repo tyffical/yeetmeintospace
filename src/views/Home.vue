@@ -3,13 +3,14 @@
     <div v-if="isSignedIn">
       <TopBar/> 
       <h1 class=shimmer>yeetmeinto.space</h1>
-      <div v-if="yeeted" class="yeets">
+      <Yeets/>
+      <!-- <div v-if="yeeted" class="yeets"> -->
         <!-- <YeetMe/> -->
-        <Yeets/>
-      </div>
-      <div v-else>
-        <YeetMe/>
-      </div>
+        <!-- <Yeets/> -->
+      <!-- </div> -->
+      <!-- <div v-else> -->
+        <!-- <YeetMe/> -->
+      <!-- </div> -->
     </div>
     <div v-else>
       <h1 style="margin-top: 15%" class=shimmer>yeetmeinto.space</h1>
@@ -29,48 +30,52 @@
 <script>
 import TopBar from '../components/TopBar.vue'
 import SignIn from '../components/SignIn.vue'
-import YeetMe from '../components/YeetMe.vue'
 import Yeets from '../components/Yeets.vue'
 import { eventBus } from "../main";
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: 'App',
   components: {
     TopBar,
     SignIn,
-    YeetMe,
     Yeets
   },
   data() {
     return {
       isSignedIn: false,
-      yeeted: false,
-      messages: []
+      // yeeted: false,
+      messages: [],
+      username: this.$cookie.get('yeetmeintospace-auth')
     }
   },
 
   created: function() {
+    console.log(`username: ${this.username}`);
     let authenticated = this.$cookie.get('yeetmeintospace-auth');
-    if (authenticated) {
+    console.log(`authenticated: ${authenticated}`);
+    if (authenticated && authenticated !== undefined && authenticated.length !== 0) {
       this.isSignedIn = true;
-      axios
-        .get(`/api/users/yeet/${authenticated}`)
-        .then((res) => {
-          // handle success
-          this.messages.push(res.data.quote);
-          this.yeeted = true;
-        })
-        .catch(err => {
-          // handle error
-          this.messages.push(err);
-          // this.messages.push(err.response.data.message);
-        })
-        .then(() => {
-          // always executed
-          this.clearMessages();
-        });
     }
+    // if (this.username) {
+    //   this.isSignedIn = true;
+    //   axios
+    //     .get(`/api/users/yeet/${this.username}`)
+    //     .then((res) => {
+    //       // handle success
+    //       this.messages.push(res.data.quote);
+    //       this.yeeted = true;
+    //     })
+    //     .catch(err => {
+    //       // handle error
+    //       this.messages.push(err);
+    //       // this.messages.push(err.response.data.message);
+    //     })
+    //     .then(() => {
+    //       // always executed
+    //       this.clearMessages();
+    //     });
+    // }
 
     eventBus.$on("signin-success", (bodyContent) => {
       this.$cookie.set('yeetmeintospace-auth', bodyContent.username);
@@ -88,13 +93,13 @@ export default {
       this.$forceUpdate();
     });
 
-    eventBus.$on("yeetme-success", (bodyContent) => {
-      this.yeeted = true;
-      this.messages.push("You have been yeeted!");
-      this.messages.push(`Quote: ${bodyContent.quote}`)
-      this.clearMessages();
-      this.$forceUpdate();
-    });
+    // eventBus.$on("yeetme-success", (bodyContent) => {
+    //   this.yeeted = true;
+    //   this.messages.push("You have been yeeted!");
+    //   this.messages.push(`Quote: ${bodyContent.quote}`)
+    //   this.clearMessages();
+    //   this.$forceUpdate();
+    // });
   },
 
   methods: {
@@ -112,8 +117,4 @@ export default {
   color: white;
 }
 
-/* .yeets {
-  height: 80%;
-  margin-bottom: 5%;
-} */
 </style>

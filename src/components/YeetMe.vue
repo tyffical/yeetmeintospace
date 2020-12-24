@@ -3,7 +3,8 @@
         <form id="yeet" class='component' method="post" v-on:submit.prevent="yeetMe">
             <input id='username' v-model.trim='username' type='text' name='username' readonly="readonly">
             <textarea rows="6"
-                id='quote' v-model='quote' type='text' name='quote' placeholder="Quote">
+                id='quote' v-model='quote' type='text' name='quote' placeholder="Quote"
+                v-on:input.prevent="this.quote = $event.target.value">
             </textarea>
             <br/>
             <input type='submit' value='Yeet Me!' class="button">
@@ -31,6 +32,39 @@ export default {
             quote: "",
         }
     },
+    created: function () {
+        eventBus.$on("signin-success", (bodyContent) => {
+            this.username = bodyContent.username;
+        });
+
+        eventBus.$on("signup-success", (bodyContent) => {
+            this.username = bodyContent.username;
+        });
+
+        eventBus.$on("yeetme-success", (bodyContent) => {
+            this.quote = bodyContent.quote;
+        });
+
+        if (this.username) {
+            axios
+                .get(`/api/users/yeet/${this.username}`)
+                .then((res) => {
+                    // handle success
+                    this.messages.push(res.data.quote);
+                    this.quote = res.data.quote;
+                })
+                .catch(err => {
+                    // handle error
+                    this.messages.push(err);
+                    // this.messages.push(err.response.data.message);
+                })
+                .then(() => {
+                    // always executed
+                    this.clearMessages();
+                });
+        }
+    },
+
     methods: {
         yeetMe: function() {
             const bodyContent = { quote: this.quote };
@@ -40,6 +74,7 @@ export default {
                     // handle success
                     console.log(bodyContent.quote);
                     eventBus.$emit('yeetme-success', bodyContent);
+                    this.quote = bodyContent.quote;
                 })
                 .catch(err => {
                     // handle error
@@ -47,7 +82,7 @@ export default {
                 })
                 .then(() => {
                     // always executed
-                    this.resetForm();
+                    // this.resetForm();
                     this.clearMessages();
                 });
         },

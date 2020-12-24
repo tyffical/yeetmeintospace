@@ -174,8 +174,11 @@ router.get('/yeet/:username?', (req, res) => {
 	//console.log(req.body);
 	// const requesting = req.body.username;
 	const requesting = req.params.username;
-	console.log("requesting: ", requesting)
-	console.log("testing ", req.params.username);
+	console.log("requesting: ", requesting);
+	if (requesting === undefined) {
+		requesting = req.session.username;
+	}
+	console.log("testing ", requesting);
 	if (requesting === undefined){
 		res.status(401).json( {message: "requesting undefined"});
 	} else if (!Users.userExists(requesting)) {

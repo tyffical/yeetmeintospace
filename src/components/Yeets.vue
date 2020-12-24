@@ -108,7 +108,7 @@ export default {
 
 .yeets {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     flex-wrap: wrap;
     width: 100%;
     /* justify-content: center; */
