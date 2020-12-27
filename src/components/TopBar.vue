@@ -2,8 +2,7 @@
   <div class="topbar">
 
     <!-- <span id="title"> yeetmeinto.space </span> -->
-
-    <div id="icons">
+    <div v-if="isSignedIn" id="icons">
       <div class="icon"> 
         <router-link to="/">
           <div id="home"> home </div>
@@ -25,6 +24,21 @@
         </router-link>
       </div>
     </div>
+
+    <div v-else id="icons">
+      <div class="icon"> 
+        <router-link to="/">
+          <div id="home"> home </div>
+        </router-link>
+      </div>
+
+      <div class="icon"> 
+        <router-link to="/settings">
+          <div id="settings"> login </div>
+        </router-link>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -35,10 +49,15 @@ export default {
   props: {
     msg: String
   },
-  methods: {
-    clicked: function(event) {
-      // alert(event);
-      console.log(event);
+  data() {
+    return {
+      isSignedIn: false
+    }
+  },
+  created: function() {
+    let authenticated = this.$cookie.get('yeetmeintospace-auth');
+    if (authenticated && authenticated !== undefined && authenticated.length !== 0) {
+      this.isSignedIn = true;
     }
   }
 }

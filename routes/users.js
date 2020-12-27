@@ -141,25 +141,15 @@ router.post('/yeet', (req, res) => {
 		const username = req.session.username;
 		console.log(req.body)
 		Users.yeet(username, req.body.quote);
-		res.status(200).json({message: req.body.quote});
+		res.status(200).json({quote: req.body.quote});
 	}
 })
 
 /**
-//  * Get the information about the current user signed in
- * Get all users and their quotes.
+ * Get all users.
  * @name GET/api/users/
-//  * @throws {401} - if user not signed in
  */
 router.get('/', (req, res) => {
-	// if(req.session.username === undefined){
-	// 	res.status(401).json({ message: 'Not signed in' });
-	// }
-	// else{
-	// 	const logged_in = req.session.username
-	// 	//console.log(logged_in);
-	// 	res.status(200).json({ user: Users.getUserId(logged_in)});
-	// }
 	let users_list = Users.getUsers();
 	res.status(200).json({users: users_list})
 })
@@ -171,8 +161,6 @@ router.get('/', (req, res) => {
  * @throws {400} - if user's quote not found
  */
 router.get('/yeet/:username?', (req, res) => {
-	//console.log(req.body);
-	// const requesting = req.body.username;
 	const requesting = req.params.username;
 	console.log("requesting: ", requesting);
 	if (requesting === undefined) {
@@ -185,7 +173,6 @@ router.get('/yeet/:username?', (req, res) => {
 		res.status(401).json( {message: 'User not found'});
 	}
 	else{
-		//console.log(logged_in);
 		let thisquote = Users.getQuote(requesting);
 		if (thisquote === "") {
 			res.status(400).json({ message: "No quote found"});

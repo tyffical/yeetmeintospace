@@ -98,12 +98,9 @@ export default {
     font-size: 1rem;
     margin-left: 5%;
     width: 90%;
-    /* height: 20%; */
     height: 450px;
-    /* margin-right: 5%; */
     margin-top: 5%;
     margin-bottom: 5%;
-    /* margin-right: 20%; */
 
     display: flex;
     flex-direction: column;
@@ -115,7 +112,6 @@ export default {
     flex-direction: row-reverse;
     flex-wrap: wrap;
     width: 100%;
-    /* justify-content: center; */
     justify-content: space-between;
     align-content: space-between;
     overflow-x: auto;
@@ -123,11 +119,7 @@ export default {
 
 .yeet {
     margin: 20px;
-    /* margin: 250px; */
-    /* margin-right: 250px; */
     overflow-x: auto;
-    /* position: relative; */
-    display: inline;
 }
 
 .star {
@@ -136,10 +128,8 @@ export default {
 }
 
 .yeet-body {
-    /* width: 300px; */
     width: fit-content;
     max-width: 200px;
-    /* text-align: center; */
     padding: 12px 20px;
     margin: 8px 2px;
     box-sizing: border-box;
@@ -153,6 +143,7 @@ export default {
     opacity: 0.8;
 
     position: absolute;
+    overflow-wrap: break-word;
 }
 
 /* pointer */

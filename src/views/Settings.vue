@@ -2,7 +2,7 @@
   <div class="settings">
     <TopBar/> 
     <h1 class="shimmer">yeetmeinto.space</h1>
-    <div class="actions">
+    <div v-if="isSignedIn" class="actions">
       <form v-on:submit.prevent="changeUsername" method="post">
         <input id='username' v-model.trim='newUsername' type='text' name='username' placeholder="New Username">
         <br/>
@@ -17,19 +17,24 @@
         <button id="delete" v-on:click="deleteAccount" class="change">Delete Account</button>
         <button id="signout" v-on:click="signOut" class="change">Sign Out</button>
       </div>
-      <div v-if='errors.length' class="error-message" style="width: 250px;">
-        <b>Please correct the following error(s):</b>
-        <ul>
-          <li v-for='error in errors' v-bind:key='error.id'>{{ error }}</li>
-        </ul>
-      </div>
-      <div v-if='messages.length' class="message" style="width: 250px;">
+    </div>
+
+    <div v-else>
+      <SignIn/>
+    </div>
+
+    <div v-if='errors.length' class="error-message" style="width: 250px;">
+      <b>Please correct the following error(s):</b>
+      <ul>
+        <li v-for='error in errors' v-bind:key='error.id'>{{ error }}</li>
+      </ul>
+    </div>
+    <div v-if='messages.length' class="message" style="width: 250px;">
       <br/>
       <b>Messages:</b>
       <ul>
           <li v-for='message in messages' v-bind:key='message.id'>{{ message }}</li>
       </ul>
-    </div>
     </div>
   </div>
 </template>
@@ -38,24 +43,49 @@
 import axios from "axios";
 import { eventBus } from "../main";
 import TopBar from "../components/TopBar";
+import SignIn from '../components/SignIn.vue'
 
 export default {
   name: "Settings",
   components: {
     TopBar,
+    SignIn
   },
   
   data() {
     return {
       errors: [],
       messages: [],
+      isSignedIn: false,
       newUsername: "",
       newPassword: ""
     }
   },
 
   created: function() {
-    
+    console.log(`username: ${this.username}`);
+    let authenticated = this.$cookie.get('yeetmeintospace-auth');
+    console.log(`authenticated: ${authenticated}`);
+    if (authenticated && authenticated !== undefined && authenticated.length !== 0) {
+      this.isSignedIn = true;
+    }
+
+    eventBus.$on("signin-success", (bodyContent) => {
+      this.$cookie.set('yeetmeintospace-auth', bodyContent.username);
+      this.isSignedIn = true;
+      this.messages.push("You have been signed in!");
+      this.clearMessages();
+      this.$router.push({ name: 'Home' });
+    });
+
+    eventBus.$on("signup-success", (bodyContent) => {
+      this.$cookie.set('yeetmeintospace-auth', bodyContent.username);
+      this.isSignedIn = true;
+      this.messages.push("You have been signed up!");
+      this.clearMessages();
+      this.$router.push({ name: 'Home' });
+    });
+
     eventBus.$on("signout-success", () => {
       this.$cookie.set('yeetmeintospace-auth', '');
       this.isSignedIn = false;
@@ -225,11 +255,6 @@ export default {
 .change:hover {
     opacity: 0.8;
     color: grey;
-}
-
-h1 {
-  margin-top: 0%;
-  margin-bottom: 5%;
 }
 
 .error-message {

@@ -50,13 +50,13 @@ export default {
                 .get(`/api/users/yeet/${this.username}`)
                 .then((res) => {
                     // handle success
-                    // this.messages.push(res.data.quote);
                     this.quote = res.data.quote;
                 })
                 .catch(err => {
                     // handle error
-                    this.errors.push(err);
-                    // this.messages.push(err.response.data.message);
+                    console.log(err.response.data.message);
+                    // this.errors.push(err.response.data.message);
+                    this.quote = "";
                 })
                 .then(() => {
                     // always executed
@@ -76,9 +76,10 @@ export default {
                     eventBus.$emit('yeetme-success', bodyContent);
                     this.quote = bodyContent.quote;
                 })
-                .catch(err => {
+                .catch((err) => {
                     // handle error
                     this.errors.push(err.response.data.message);
+                    this.quote = "";
                 })
                 .then(() => {
                     // always executed
