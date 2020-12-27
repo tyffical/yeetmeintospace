@@ -26,7 +26,7 @@ import { eventBus } from "../main";
 export default {
     name: 'YeetMe',
     data() {
-        return {
+        return {  
             errors: [],
             username: this.$cookie.get('yeetmeintospace-auth'),
             quote: "",
@@ -50,12 +50,12 @@ export default {
                 .get(`/api/users/yeet/${this.username}`)
                 .then((res) => {
                     // handle success
-                    this.messages.push(res.data.quote);
+                    // this.messages.push(res.data.quote);
                     this.quote = res.data.quote;
                 })
                 .catch(err => {
                     // handle error
-                    this.messages.push(err);
+                    this.errors.push(err);
                     // this.messages.push(err.response.data.message);
                 })
                 .then(() => {

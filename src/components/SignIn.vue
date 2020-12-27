@@ -42,7 +42,7 @@ export default {
           .post("/api/users", bodyContent)
           .then(() => {
             // handle success
-            eventBus.$emit('signup-success', true);
+            eventBus.$emit('signup-success', bodyContent);
           })
           .catch(err => {
             // handle error

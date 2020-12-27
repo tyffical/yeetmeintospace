@@ -4,7 +4,7 @@
             <br/>
             <!-- <h2>Yeets:</h2> -->
             <div class="yeet" v-for='yeet in yeets' v-bind:key='yeet.id'> 
-                <span class="star" v-on:click="toggle(yeet)" width=35 height=35> &#9733; </span> 
+                <span class="star" v-on:mouseover="makeVisible(yeet)" v-on:mouseleave="makeInvisible(yeet)" v-on:click="toggle(yeet)" width=35 height=35> &#9733; </span> 
                 <div class="yeet-body" v-bind:class="yeet.visible ? visibleClass : invisibleClass">
                     <span style="font-weight: bold; text-decoration: underline">{{ yeet.username }}</span>: 
                     <br> <br> <span>"{{ yeet.quote}}"</span>
@@ -45,7 +45,7 @@ export default {
                         .then((res) => {
                             const fullResponse = res.response === undefined ? res : res.response;
                             let thisquote = fullResponse.data.quote;
-                            let yeet = {username: user, quote: thisquote, visible: false};
+                            let yeet = {username: user, quote: thisquote, clicked: false, visible: false};
                             this.yeets.push(yeet);
                         })
                         .catch((err) => {
@@ -74,13 +74,17 @@ export default {
         },
         toggle: function(yeet) {
             console.log(`toggled ${yeet.username}`);
-            yeet.visible = !yeet.visible;
+            yeet.clicked = !yeet.clicked;
+            yeet.visible = yeet.clicked;
+            // yeet.visible = !yeet.visible;
         },
         makeVisible: function(yeet) {
             yeet.visible = true;
         },
         makeInvisible: function(yeet) {
-            yeet.visible = false;
+            if (!yeet.clicked) {
+                yeet.visible = false;
+            }
         }
     }
 }
@@ -122,6 +126,8 @@ export default {
     /* margin: 250px; */
     /* margin-right: 250px; */
     overflow-x: auto;
+    /* position: relative; */
+    display: inline;
 }
 
 .star {
@@ -132,7 +138,7 @@ export default {
 .yeet-body {
     /* width: 300px; */
     width: fit-content;
-    max-width: 250px;
+    max-width: 200px;
     /* text-align: center; */
     padding: 12px 20px;
     margin: 8px 2px;
@@ -154,15 +160,15 @@ export default {
     content: '';
 	position: absolute;
 	top: 0;
-	left: 10%;
+	left: 1rem;
 	width: 0;
 	height: 0;
 	border: 0.844em solid transparent;
 	border-bottom-color: white;
 	border-top: 0;
 	border-left: 0;
-    margin-left: -0.300em;
-    margin-top: -0.900em;
+	margin-left: -0.312em;
+	margin-top: -0.9em;
 }
 
 .visible {

@@ -69,7 +69,7 @@ export default {
   margin-right: 30px;
 }
 
-#home:hover, #settings:hover {
+#home:hover, #youryeet:hover, #settings:hover {
   text-decoration: underline;
 }
 
