@@ -63,7 +63,6 @@ export default {
   },
 
   created: function() {
-    console.log(`username: ${this.username}`);
     let authenticated = this.$cookie.get('yeetmeintospace-auth');
     console.log(`authenticated: ${authenticated}`);
     if (authenticated && authenticated !== undefined && authenticated.length !== 0) {

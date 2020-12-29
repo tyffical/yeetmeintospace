@@ -1,26 +1,22 @@
 <template>
   <div class="topbar">
 
-    <!-- <span id="title"> yeetmeinto.space </span> -->
     <div v-if="isSignedIn" id="icons">
       <div class="icon"> 
         <router-link to="/">
           <div id="home"> home </div>
-          <!-- <img alt="Home" src="../assets/home.png" v-on:click="clicked('home')" width=35 height=35>  -->
         </router-link>
       </div>
 
       <div class="icon"> 
         <router-link to="/youryeet">
           <div id="youryeet"> your yeet </div>
-          <!-- <img alt="YourYeet" src="../assets/youryeet.png" v-on:click="clicked('youryeet')" width=35 height=35>  -->
         </router-link>
       </div>
 
       <div class="icon"> 
         <router-link to="/settings">
           <div id="settings"> settings </div>
-          <!-- <img alt="Settings" src="../assets/settings.png" v-on:click="clicked('settings')" width=35 height=35>  -->
         </router-link>
       </div>
     </div>

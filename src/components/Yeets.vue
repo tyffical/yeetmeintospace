@@ -4,7 +4,7 @@
             <br/>
             <!-- <h2>Yeets:</h2> -->
             <div class="yeet" v-for='yeet in yeets' v-bind:key='yeet.id'> 
-                <span class="star" v-on:mouseover="makeVisible(yeet)" v-on:mouseleave="makeInvisible(yeet)" v-on:click="toggle(yeet)" width=35 height=35> &#9733; </span> 
+                <span class="star" v-on:mouseover="makeVisible(yeet)" v-on:mouseleave="makeInvisible(yeet)" v-on:click="toggle(yeet)" width=35 height=35>&#9733;</span> 
                 <div class="yeet-body" v-bind:class="yeet.visible ? visibleClass : invisibleClass">
                     <span style="font-weight: bold; text-decoration: underline">{{ yeet.username }}</span>: 
                     <br> <br> <span>"{{ yeet.quote}}"</span>
@@ -68,10 +68,6 @@ export default {
                 this.errors = [];
             }, 5000);
         },
-        clicked: function(event) {
-            // alert(event);
-            console.log(event);
-        },
         toggle: function(yeet) {
             console.log(`toggled ${yeet.username}`);
             yeet.clicked = !yeet.clicked;
@@ -114,17 +110,21 @@ export default {
     width: 100%;
     justify-content: space-between;
     align-content: space-between;
-    overflow-x: auto;
 }
 
 .yeet {
     margin: 20px;
-    overflow-x: auto;
 }
 
 .star {
     cursor: pointer;
     width: fit-content;
+    display: inline-block;
+}
+
+.star:hover {
+    transition: 0.5s;
+    transform: rotate(360deg);
 }
 
 .yeet-body {
