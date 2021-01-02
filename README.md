@@ -1,5 +1,5 @@
 
-# yeetmeinto.space (https://yeetmeinto.space/)
+# yeetmeinto.space (http://yeetmeinto.space/)
 ## Tiffany Trinh
 ### Purpose and Functionality
 yeet yourself (including your name and a memorable quote/insight) into space! :)

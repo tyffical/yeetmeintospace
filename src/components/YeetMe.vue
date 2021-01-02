@@ -3,8 +3,7 @@
         <form id="yeet" class='component' method="post" v-on:submit.prevent="yeetMe">
             <input id='username' v-model.trim='username' type='text' name='username' readonly="readonly">
             <textarea rows="6"
-                id='quote' v-model='quote' type='text' name='quote' placeholder="Quote"
-                v-on:input.prevent="this.quote = $event.target.value">
+                id='quote' v-model='quote' type='text' name='quote' placeholder="Quote">
             </textarea>
             <br/>
             <input type='submit' value='Yeet Me!' class="button">
@@ -72,7 +71,6 @@ export default {
                 .post("/api/users/yeet", bodyContent)
                 .then(() => {
                     // handle success
-                    console.log(bodyContent.quote);
                     eventBus.$emit('yeetme-success', bodyContent);
                     this.quote = bodyContent.quote;
                 })

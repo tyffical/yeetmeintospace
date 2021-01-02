@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="home">
     <TopBar/> 
     <h1 class=shimmer>yeetmeinto.space</h1>
     <Yeets/>

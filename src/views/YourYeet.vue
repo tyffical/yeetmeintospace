@@ -2,7 +2,10 @@
     <div class="your-yeet">
         <TopBar/>
         <h1 class=shimmer>yeetmeinto.space</h1>
-        <YeetMe/>
+        <div v-bind:class=" { yeeted: loading }">
+            <YeetMe/>
+        </div>
+        <span v-if="done" class="star">&#9733;</span>
     </div>
 </template>
 
@@ -19,16 +22,22 @@ export default {
     },
     data() {
         return {
-            messages: []
+            messages: [], 
+            loading: false,
+            done: false
         }
     },
 
     created: function() {
         eventBus.$on("yeetme-success", (bodyContent) => {
-            this.messages.push("You have been yeeted!");
-            this.messages.push(`Quote: ${bodyContent.quote}`)
-            this.clearMessages();
-            this.$router.push({ name: 'Home' });
+            this.loading = true;
+            this.done = true;
+            setTimeout(() => {
+                this.messages.push("You have been yeeted!");
+                this.messages.push(`Quote: ${bodyContent.quote}`)
+                this.clearMessages();
+                this.$router.push({ name: 'Home' });
+            }, 1000);
         });
     },
 
@@ -43,5 +52,37 @@ export default {
 </script>
 
 <style scoped>
+
+.yeeted {
+    animation: yeet 1000ms linear;
+}
+
+@keyframes yeet {
+    0%   {transform: rotate(0deg) scale(1); opacity: 1;}
+    25%  {transform: rotate(360deg) scale(0.75); opacity: 0.75;}
+    50%  {transform: rotate(720deg) scale(0.5); opacity: 0.5;}
+    75%  {transform: rotate(1080deg) scale(0.25); opacity: 0.25;}
+    100% {transform: rotate(1440deg) scale(0.0); opacity: 0.0;}
+}
+
+
+span {
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 55%;
+}
+
+.star {
+    animation: star 1000ms linear;
+}
+
+@keyframes star {
+    0%   {transform: rotate(0deg) scale(20); opacity: 0;}
+    25%  {transform: rotate(360deg) scale(15); opacity: 0.25;}
+    50%  {transform: rotate(720deg) scale(10); opacity: 0.5;}
+    75%  {transform: rotate(1080deg) scale(5); opacity: 0.75;}
+    100% {transform: rotate(1440deg) scale(0); opacity: 1.0;}
+}
 
 </style>

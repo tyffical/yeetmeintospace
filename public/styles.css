@@ -1,4 +1,4 @@
-html
+html, body
 /* , #background */
  {
     /* background-color: black; */
@@ -7,10 +7,15 @@ html
     /* background-size: auto; */
     /* background-position: 0, 0; */
     width: 100%;
+    margin: 0;
     height: 100%;
     /* width: 10000px; */
     /* height: 10000px; */
     overflow: hidden;
+}
+
+#app {
+    height: 100%;
 }
 
 h1 {

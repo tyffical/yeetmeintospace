@@ -1,10 +1,9 @@
 <template>
     <div class="yeet-list">
         <div v-if='yeets.length' class="yeets">
-            <br/>
-            <!-- <h2>Yeets:</h2> -->
             <div class="yeet" v-for='yeet in yeets' v-bind:key='yeet.id'> 
-                <span class="star" v-on:mouseover="makeVisible(yeet)" v-on:mouseleave="makeInvisible(yeet)" v-on:click="toggle(yeet)" width=35 height=35>&#9733;</span> 
+                <span class="star" v-on:mouseover="makeVisible(yeet)" v-on:mouseleave="makeInvisible(yeet)" v-on:click="toggle(yeet)">&#9733;</span> 
+                <span class="yours" v-if='yeet.username===currentUser'>&#8592;It's you!</span>
                 <div class="yeet-body" v-bind:class="yeet.visible ? visibleClass : invisibleClass">
                     <span style="font-weight: bold; text-decoration: underline">{{ yeet.username }}</span>: 
                     <br> <br> <span>"{{ yeet.quote}}"</span>
@@ -32,13 +31,13 @@ export default {
             errors: [],
             yeets: [],
             visibleClass: 'visible',
-            invisibleClass: 'invisible'
+            invisibleClass: 'invisible',
+            currentUser: this.$cookie.get("yeetmeintospace-auth")
         }
     },
     mounted() {
         axios.get(`/api/users/`)
             .then((res) => {
-                console.log(res.data);
                 let users = res.data.users;
                 users.forEach((user) => {
                     axios.get(`/api/users/yeet/${user}`)
@@ -52,7 +51,6 @@ export default {
                             this.errors.push(err);
                         });
                 })
-                console.log(this.yeets);
             })
             .catch((err) => {
                 this.errors.push(err);
@@ -72,7 +70,6 @@ export default {
             console.log(`toggled ${yeet.username}`);
             yeet.clicked = !yeet.clicked;
             yeet.visible = yeet.clicked;
-            // yeet.visible = !yeet.visible;
         },
         makeVisible: function(yeet) {
             yeet.visible = true;
@@ -92,11 +89,12 @@ export default {
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 1rem;
-    margin-left: 5%;
-    width: 90%;
-    height: 450px;
+    height: 70%;
     margin-top: 5%;
     margin-bottom: 5%;
+    margin-left: 5%;
+    margin-right: 160px;
+    /* width: 90%; */
 
     display: flex;
     flex-direction: column;
@@ -105,7 +103,7 @@ export default {
 
 .yeets {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
     justify-content: space-between;
@@ -113,7 +111,7 @@ export default {
 }
 
 .yeet {
-    margin: 20px;
+    margin: 30px;
 }
 
 .star {
@@ -125,6 +123,11 @@ export default {
 .star:hover {
     transition: 0.5s;
     transform: rotate(360deg);
+}
+
+.yours {
+    font-family: cursive;
+    position: absolute;
 }
 
 .yeet-body {

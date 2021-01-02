@@ -64,7 +64,6 @@ export default {
 
   created: function() {
     let authenticated = this.$cookie.get('yeetmeintospace-auth');
-    console.log(`authenticated: ${authenticated}`);
     if (authenticated && authenticated !== undefined && authenticated.length !== 0) {
       this.isSignedIn = true;
     }
