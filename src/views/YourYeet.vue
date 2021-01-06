@@ -76,7 +76,8 @@ span {
     color: white;
     position: absolute;
     top: -40px;
-    left: 33%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 20rem;
 }
 
@@ -85,11 +86,11 @@ span {
 }
 
 @keyframes star {
-    0%   {transform: rotate(0deg) scale(1); opacity: 0;}
-    25%  {transform: rotate(360deg) scale(0.75); opacity: 0.25;}
-    50%  {transform: rotate(720deg) scale(0.5); opacity: 0.5;}
-    75%  {transform: rotate(1080deg) scale(0.25); opacity: 0.75;}
-    100% {transform: rotate(1440deg) scale(0); opacity: 1.0;}
+    0%   {transform: translate(-50%) rotate(0deg) scale(1); opacity: 0;}
+    25%  {transform: translate(-50%) rotate(360deg) scale(0.75); opacity: 0.25;}
+    50%  {transform: translate(-50%) rotate(720deg) scale(0.5); opacity: 0.5;}
+    75%  {transform: translate(-50%) rotate(1080deg) scale(0.25); opacity: 0.75;}
+    100% {transform: translate(-50%) rotate(1440deg) scale(0); opacity: 1.0;}
 }
 
 </style>
