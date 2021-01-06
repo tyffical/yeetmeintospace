@@ -2,10 +2,12 @@
     <div class="your-yeet">
         <TopBar/>
         <h1 class=shimmer>yeetmeinto.space</h1>
-        <div v-bind:class=" { yeeted: loading }">
-            <YeetMe/>
+        <div class="yeet-me">
+            <div v-bind:class=" { yeeted: loading }">
+                <YeetMe/>
+            </div>
+            <span v-if="done" class="star">&#9733;</span>
         </div>
-        <span v-if="done" class="star">&#9733;</span>
     </div>
 </template>
 
@@ -53,6 +55,10 @@ export default {
 
 <style scoped>
 
+.yeet-me {
+    position: relative;
+}
+
 .yeeted {
     animation: yeet 1000ms linear;
 }
@@ -69,8 +75,9 @@ export default {
 span {
     color: white;
     position: absolute;
-    left: 50%;
-    top: 55%;
+    top: -40px;
+    left: 33%;
+    font-size: 20rem;
 }
 
 .star {
@@ -78,10 +85,10 @@ span {
 }
 
 @keyframes star {
-    0%   {transform: rotate(0deg) scale(20); opacity: 0;}
-    25%  {transform: rotate(360deg) scale(15); opacity: 0.25;}
-    50%  {transform: rotate(720deg) scale(10); opacity: 0.5;}
-    75%  {transform: rotate(1080deg) scale(5); opacity: 0.75;}
+    0%   {transform: rotate(0deg) scale(1); opacity: 0;}
+    25%  {transform: rotate(360deg) scale(0.75); opacity: 0.25;}
+    50%  {transform: rotate(720deg) scale(0.5); opacity: 0.5;}
+    75%  {transform: rotate(1080deg) scale(0.25); opacity: 0.75;}
     100% {transform: rotate(1440deg) scale(0); opacity: 1.0;}
 }
 
